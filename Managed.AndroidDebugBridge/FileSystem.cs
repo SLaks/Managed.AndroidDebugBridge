@@ -81,9 +81,11 @@ namespace Managed.Adb {
 
 			if ( !Device.IsOffline ) {
 				try {
-					FileEntry fe = Device.FileListingService.FindFileEntry ( path );
-					return fe != null;
-				} catch ( FileNotFoundException e ) {
+					Device.ExecuteShellCommand(
+						Device.FileListingService.ForceBusyBox ? FileListingService.BUSYBOX_LS : FileListingService.TOOLBOX_LS, 
+						NullOutputReceiver.Instance, path);
+					return true;
+				} catch ( FileNotFoundException ) {
 					return false;
 				}
 			} else {
@@ -198,9 +200,8 @@ namespace Managed.Adb {
 			path.ThrowIfNullOrWhiteSpace ( "path" );
 			permissions.ThrowIfNullOrWhiteSpace ( "permissions" );
 
-			FileEntry entry = Device.FileListingService.FindFileEntry ( path );
 			CommandErrorReceiver cer = new CommandErrorReceiver ( );
-			Device.ExecuteShellCommand ( "chmod {0} {1}", cer, permissions, entry.FullEscapedPath );
+			Device.ExecuteShellCommand ( "chmod {0} {1}", cer, permissions, path);
 		}
 
 		/// <summary>
