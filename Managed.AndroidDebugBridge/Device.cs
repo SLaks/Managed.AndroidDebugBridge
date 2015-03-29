@@ -40,7 +40,11 @@ namespace Managed.Adb {
 		/// <summary>
 		/// 
 		/// </summary>
-		Unknown
+		Unknown,
+		/// <summary>
+		/// User has not allowed ADB from this host on the device prompt.
+		/// </summary>
+		Unauthorized
 	}
 
 	/// <summary>
@@ -107,7 +111,7 @@ namespace Managed.Adb {
 		/// Device list info regex
 		/// </summary>
 		/// <workitem>21136</workitem>
-		private const String RE_DEVICELIST_INFO = @"^([a-z0-9_-]+(?:\s?[\.a-z0-9_-]+)?(?:\:\d{1,})?)\s+(device|offline|unknown|bootloader|recovery|download)(?:\s+product:([\S]+)\s+model\:([\S]+)\s+device\:([\S]+))?$";
+		private const String RE_DEVICELIST_INFO = @"^([a-z0-9_-]+(?:\s?[\.a-z0-9_-]+)?(?:\:\d{1,})?)\s+(device|offline|unknown|bootloader|recovery|download|unauthorized)(?:\s+product:([\S]+)\s+model\:([\S]+)\s+device\:([\S]+))?$";
 		/// <summary>
 		/// Tag
 		/// </summary>
