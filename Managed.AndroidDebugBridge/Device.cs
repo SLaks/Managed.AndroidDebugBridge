@@ -129,6 +129,9 @@ namespace Managed.Adb {
 		private BatteryInfo _lastBatteryInfo = null;
 		private DateTime _lastBatteryCheckTime = DateTime.MinValue;
 
+		///<summary>If true, new <see cref="Device"/> instances will not populate device info properties.</summary>
+		public static bool DisableAutomaticInfoRetrieval { get; set; }
+
 		/// <summary>
 		/// Initializes a new instance of the <see cref="Device"/> class.
 		/// </summary>
@@ -151,7 +154,7 @@ namespace Managed.Adb {
 			Product = product;
 			DeviceProperty = device;
 
-			RetrieveDeviceInfo();
+			if (!DisableAutomaticInfoRetrieval) RetrieveDeviceInfo();
 		}
 
 		/// <summary>
