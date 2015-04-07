@@ -94,7 +94,8 @@ namespace Managed.Adb {
 		/// The null progress monitor.
 		/// </value>
 		public static NullSyncProgressMonitor NullProgressMonitor { get; private set; }
-		private static byte[] DataBuffer { get; set; }
+		[ThreadStatic]
+		private static byte[] DataBuffer;
 
 		/// <summary>
 		/// Checks the result array starts with the provided code
